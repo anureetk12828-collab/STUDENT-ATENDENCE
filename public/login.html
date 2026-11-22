@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Administrator Login</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <main class="auth-card">
+
+        <h1>Administrator Login</h1>
+
+        <form id="loginForm">
+
+            <label for="email">Email</label>
+
+            <input
+                id="email"
+                type="email"
+                required
+            >
+
+            <label for="password">Password</label>
+
+            <input
+                id="password"
+                type="password"
+                required
+            >
+
+            <button type="submit">
+                Log In
+            </button>
+
+        </form>
+
+        <p id="message" role="status"></p>
+
+        <p>
+            New administrator?
+            <a href="register.html">Create account</a>
+        </p>
+
+    </main>
+
+    <script src="js/auth.js"></script>
+
+</body>
+
+</html>

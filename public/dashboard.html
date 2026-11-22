@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Attendance Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <main class="dashboard">
+
+        <header class="topbar">
+
+            <h1>Attendance Dashboard</h1>
+
+            <button id="logoutButton" type="button">
+                Log Out
+            </button>
+
+        </header>
+
+
+        <!-- ADD STUDENT -->
+
+        <section class="panel">
+
+            <h2>Add Student</h2>
+
+            <form id="studentForm" class="student-form">
+
+                <input
+                    id="studentName"
+                    placeholder="Student Name"
+                    required
+                >
+
+                <input
+                    id="rollNumber"
+                    placeholder="Roll Number"
+                    required
+                >
+
+                <input
+                    id="className"
+                    placeholder="Class / Section"
+                    required
+                >
+
+                <input
+                    id="studentEmail"
+                    type="email"
+                    placeholder="Email (Optional)"
+                >
+
+                <button type="submit">
+                    Add Student
+                </button>
+
+            </form>
+
+            <p id="studentMessage" role="status"></p>
+
+        </section>
+
+
+        <!-- ATTENDANCE -->
+
+        <section class="panel">
+
+            <h2>Daily Attendance</h2>
+
+            <label for="attendanceDate">
+                Select Date
+            </label>
+
+            <input
+                id="attendanceDate"
+                type="date"
+            >
+
+            <div class="summary">
+
+                <span>
+                    Present:
+                    <b id="presentCount">0</b>
+                </span>
+
+                <span>
+                    Absent:
+                    <b id="absentCount">0</b>
+                </span>
+
+                <span>
+                    Not Marked:
+                    <b id="unmarkedCount">0</b>
+                </span>
+
+            </div>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Roll No.</th>
+                            <th>Student</th>
+                            <th>Class</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="attendanceRows"></tbody>
+
+                </table>
+
+            </div>
+
+            <p id="attendanceMessage" role="status"></p>
+
+        </section>
+
+    </main>
+
+    <script src="js/attendance.js"></script>
+
+</body>
+
+</html>

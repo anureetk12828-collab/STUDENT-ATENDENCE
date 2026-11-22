@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Registration</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <main class="auth-card">
+
+        <h1>Create Administrator Account</h1>
+
+        <form id="registerForm">
+
+            <label for="name">Name</label>
+
+            <input
+                id="name"
+                required
+                maxlength="60"
+            >
+
+            <label for="email">Email</label>
+
+            <input
+                id="email"
+                type="email"
+                required
+            >
+
+            <label for="password">
+                Password (at least 8 characters)
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                minlength="8"
+                required
+            >
+
+            <button type="submit">
+                Register
+            </button>
+
+        </form>
+
+        <p id="message" role="status"></p>
+
+        <p>
+            Already registered?
+            <a href="login.html">Log in</a>
+        </p>
+
+    </main>
+
+    <script src="js/auth.js"></script>
+
+</body>
+
+</html>
