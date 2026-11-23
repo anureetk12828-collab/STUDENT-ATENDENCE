@@ -1,124 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Attendance Dashboard</title>
+    <title>Student Attendance</title>
 
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body>
 
-    <main class="dashboard">
+    <div class="attendance-container">
 
         <header class="topbar">
+            <div>
+                <h1>Student Attendance</h1>
+                <p>Manage and track daily attendance</p>
+            </div>
 
-            <h1>Attendance Dashboard</h1>
-
-            <button id="logoutButton" type="button">
-                Log Out
+            <button id="logoutButton" class="logout-button">
+                Logout
             </button>
-
         </header>
 
 
-        <!-- ADD STUDENT -->
+        <!-- SUMMARY -->
+        <section class="summary">
 
+            <div class="summary-card">
+                <span>Present</span>
+                <h2 id="presentCount">0</h2>
+            </div>
+
+            <div class="summary-card">
+                <span>Absent</span>
+                <h2 id="absentCount">0</h2>
+            </div>
+
+            <div class="summary-card">
+                <span>Unmarked</span>
+                <h2 id="unmarkedCount">0</h2>
+            </div>
+
+        </section>
+
+
+        <!-- ADD STUDENT -->
         <section class="panel">
 
             <h2>Add Student</h2>
 
-            <form id="studentForm" class="student-form">
+            <form id="studentForm">
 
                 <input
+                    type="text"
                     id="studentName"
-                    placeholder="Student Name"
+                    placeholder="Student name"
                     required
                 >
 
                 <input
+                    type="text"
                     id="rollNumber"
-                    placeholder="Roll Number"
+                    placeholder="Roll number"
                     required
                 >
 
                 <input
+                    type="text"
                     id="className"
-                    placeholder="Class / Section"
+                    placeholder="Class"
                     required
                 >
 
                 <input
-                    id="studentEmail"
                     type="email"
-                    placeholder="Email (Optional)"
+                    id="studentEmail"
+                    placeholder="Email (optional)"
                 >
 
-                <button type="submit">
+                <button type="submit" class="add-button">
                     Add Student
                 </button>
 
             </form>
 
-            <p id="studentMessage" role="status"></p>
+            <p id="studentMessage" class="message"></p>
 
         </section>
 
 
         <!-- ATTENDANCE -->
-
         <section class="panel">
 
-            <h2>Daily Attendance</h2>
+            <div class="attendance-heading">
 
-            <label for="attendanceDate">
-                Select Date
-            </label>
+                <div>
+                    <h2>Attendance Register</h2>
+                    <p>Select a date to mark attendance.</p>
+                </div>
 
-            <input
-                id="attendanceDate"
-                type="date"
-            >
-
-            <div class="summary">
-
-                <span>
-                    Present:
-                    <b id="presentCount">0</b>
-                </span>
-
-                <span>
-                    Absent:
-                    <b id="absentCount">0</b>
-                </span>
-
-                <span>
-                    Not Marked:
-                    <b id="unmarkedCount">0</b>
-                </span>
+                <input
+                    type="date"
+                    id="attendanceDate"
+                >
 
             </div>
 
-            <div class="table-wrap">
+
+            <!-- SEARCH AND FILTER -->
+            <div class="filters">
+
+                <input
+                    type="search"
+                    id="searchStudent"
+                    placeholder="Search by name or roll number..."
+                >
+
+                <select id="classFilter">
+                    <option value="all">All Classes</option>
+                </select>
+
+                <button
+                    id="exportButton"
+                    type="button"
+                    class="export-button"
+                >
+                    Export Excel
+                </button>
+
+            </div>
+
+
+            <p id="attendanceMessage" class="message"></p>
+
+
+            <!-- TABLE -->
+            <div class="table-wrapper">
 
                 <table>
 
                     <thead>
-
                         <tr>
                             <th>Roll No.</th>
-                            <th>Student</th>
+                            <th>Name</th>
                             <th>Class</th>
+                            <th>Attendance %</th>
                             <th>Status</th>
                         </tr>
-
                     </thead>
 
                     <tbody id="attendanceRows"></tbody>
@@ -127,14 +157,11 @@
 
             </div>
 
-            <p id="attendanceMessage" role="status"></p>
-
         </section>
 
-    </main>
+    </div>
 
     <script src="js/attendance.js"></script>
 
 </body>
-
 </html>

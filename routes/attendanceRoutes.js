@@ -1,125 +1,91 @@
 const express = require("express");
 
-const Attendance = require("../models/attendance");
 const Student = require("../models/student");
-
+const Attendance = require("../models/attendance");
 const requireAuth = require("../middleware/auth");
 
 const router = express.Router();
 
 router.use(requireAuth);
 
-
-// DATE VALIDATION
-function validDate(value) {
-
-    return typeof value === "string" &&
-        /^\d{4}-\d{2}-\d{2}$/.test(value);
-
-}
-
-
-// GET ATTENDANCE BY DATE
+// GET ATTENDANCE
+// Daily records when date is provided.
+// Full history when no date is provided.
 router.get("/", async (req, res) => {
-
     try {
-
         const { date } = req.query;
 
-        if (!validDate(date)) {
+        let records;
 
-            return res.status(400).json({
-                message: "Provide date as YYYY-MM-DD."
-            });
-
+        if (date) {
+            records = await Attendance.find({ date })
+                .populate("student")
+                .sort({ createdAt: 1 });
+        } else {
+            records = await Attendance.find()
+                .populate("student")
+                .sort({ date: 1 });
         }
-
-        const records = await Attendance.find({ date })
-
-            .populate(
-                "student",
-                "name rollNumber className"
-            )
-
-            .sort({ "student.rollNumber": 1 });
 
         res.json(records);
 
     } catch (error) {
-
         res.status(500).json({
             message: "Could not load attendance."
         });
-
     }
-
 });
 
 
-// MARK ATTENDANCE
+// SAVE / UPDATE ATTENDANCE
 router.post("/", async (req, res) => {
-
     try {
-
         const { studentId, date, status } = req.body;
 
-        if (
-            !studentId ||
-            !validDate(date) ||
-            !["Present", "Absent"].includes(status)
-        ) {
-
+        if (!studentId || !date || !status) {
             return res.status(400).json({
-                message: "Student, valid date and status are required."
+                message: "Student, date and status are required."
             });
+        }
 
+        if (!["Present", "Absent"].includes(status)) {
+            return res.status(400).json({
+                message: "Invalid attendance status."
+            });
         }
 
         const student = await Student.findById(studentId);
 
         if (!student) {
-
             return res.status(404).json({
                 message: "Student not found."
             });
-
         }
 
         const record = await Attendance.findOneAndUpdate(
-
             {
                 student: studentId,
                 date: date
             },
-
             {
-                $set: {
-                    status: status,
-                    markedBy: req.userId
-                }
+                student: studentId,
+                date: date,
+                status: status
             },
-
             {
                 new: true,
                 upsert: true,
                 runValidators: true
             }
-
-        ).populate(
-            "student",
-            "name rollNumber className"
         );
 
         res.json(record);
 
     } catch (error) {
-
-        res.status(400).json({
+        res.status(500).json({
             message: "Could not save attendance."
         });
-
     }
-
 });
 
 module.exports = router;
